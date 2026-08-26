@@ -68,3 +68,27 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/
+
+name: Run Python Script
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  run-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Streamlit
+        run: pip install streamlit # <--- THIS SAYS: Install Streamlit first!
+
+      - name: Run the script
+        run: python main.py
